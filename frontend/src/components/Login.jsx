@@ -94,9 +94,6 @@ export default function Login({ onSuccess }) {
             required
             autoFocus
             autoComplete="username"
-            sx={{ mb: 2 }}
-            InputLabelProps={{ style: { color: '#aaa' } }}
-            InputProps={{ style: { color: 'white' } }}
             sx={{
               mb: 2,
               '& .MuiOutlinedInput-root': {

@@ -124,7 +124,7 @@ manager = ConnectionManager()
 async def websocket_metrics(websocket: WebSocket):
     token = websocket.query_params.get("token")
     if not token or not verify_token(token, token_type="access"):
-        await websocket.close(code=4001)
+        await websocket.close(code=1008)
         return
 
     await manager.connect(websocket)

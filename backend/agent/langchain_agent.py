@@ -13,7 +13,7 @@ _SAFETY_BLOCKED = {
 def _is_safe_request(message: str) -> bool:
     lower = message.lower()
     for blocked in _SAFETY_BLOCKED:
-        if blocked in lower:
+        if blocked.lower() in lower:
             return False
     return True
 

@@ -1,9 +1,18 @@
 import os
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SECRET_KEY: str = os.getenv("SECRET_KEY", "change-me-in-production-supersecret-key-32chars")
+logger = logging.getLogger(__name__)
+
+_DEFAULT_SECRET = "change-me-in-production-supersecret-key-32chars"
+SECRET_KEY: str = os.getenv("SECRET_KEY", _DEFAULT_SECRET)
+if SECRET_KEY == _DEFAULT_SECRET:
+    logger.warning(
+        "SECRET_KEY is using the insecure default value. "
+        "Set the SECRET_KEY environment variable before deploying."
+    )
 ALGORITHM: str = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 REFRESH_TOKEN_EXPIRE_DAYS: int = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))

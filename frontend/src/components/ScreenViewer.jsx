@@ -119,7 +119,7 @@ export default function ScreenViewer() {
             {activeImg ? (
               <>
                 <img
-                  src={activeImg.startsWith('http') ? activeImg : `http://localhost:8000${activeImg}`}
+                  src={activeImg.startsWith('http') ? activeImg : `${process.env.REACT_APP_API_URL || 'http://localhost:8000'}${activeImg}`}
                   alt="Screenshot"
                   style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 />

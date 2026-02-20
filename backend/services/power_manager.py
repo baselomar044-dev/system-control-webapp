@@ -29,9 +29,11 @@ def shutdown(delay_seconds: int = 0) -> dict[str, Any]:
     if os_name == "windows":
         cmd = ["shutdown", "/s", "/t", str(delay_seconds)]
     elif os_name == "macos":
-        cmd = ["sudo", "shutdown", "-h", f"+{delay_seconds // 60}"]
+        delay_mins = delay_seconds // 60
+        cmd = ["sudo", "shutdown", "-h", "now" if delay_mins == 0 else f"+{delay_mins}"]
     else:
-        cmd = ["sudo", "shutdown", "-h", f"+{delay_seconds // 60}" if delay_seconds else "now"]
+        delay_mins = delay_seconds // 60
+        cmd = ["sudo", "shutdown", "-h", "now" if delay_mins == 0 else f"+{delay_mins}"]
     return {**_run(cmd), "action": "shutdown", "platform": os_name}
 
 
@@ -40,9 +42,11 @@ def restart(delay_seconds: int = 0) -> dict[str, Any]:
     if os_name == "windows":
         cmd = ["shutdown", "/r", "/t", str(delay_seconds)]
     elif os_name == "macos":
-        cmd = ["sudo", "shutdown", "-r", f"+{delay_seconds // 60}"]
+        delay_mins = delay_seconds // 60
+        cmd = ["sudo", "shutdown", "-r", "now" if delay_mins == 0 else f"+{delay_mins}"]
     else:
-        cmd = ["sudo", "shutdown", "-r", f"+{delay_seconds // 60}" if delay_seconds else "now"]
+        delay_mins = delay_seconds // 60
+        cmd = ["sudo", "shutdown", "-r", "now" if delay_mins == 0 else f"+{delay_mins}"]
     return {**_run(cmd), "action": "restart", "platform": os_name}
 
 
