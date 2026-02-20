@@ -140,10 +140,11 @@ export default function AgentChat() {
   const { data: historyData } = useQuery({
     queryKey: ['chatHistory', sessionId],
     queryFn: () => getChatHistory(sessionId).then((r) => r.data),
-    onSuccess: (data) => {
-      if (data?.messages?.length) setMessages(data.messages);
-    },
   });
+
+  useEffect(() => {
+    if (historyData?.messages?.length) setMessages(historyData.messages);
+  }, [historyData]);
 
   const sendMutation = useMutation({
     mutationFn: ({ msg }) => sendMessage(msg, sessionId),
